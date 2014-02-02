@@ -1,0 +1,10 @@
+Wierzbica.raw|||P|=HIPERŁĄCZE("http://www.zumi.pl/2209675,Beata_Dlugolecka_PHU_Ewjan_Technika_Grzewcza_B_J_Dlugoleccy,Wierzbica,firma.html"|"Beata Długołęcka PHU Ewjan Technika Grzewcza B J Długołęccy")|Wierzbica, Na Skarpie 20| tel. (22) 793-26-16|
+Wierzbica.raw|||P|=HIPERŁĄCZE("http://www.zumi.pl/2403434,Sklep_Wedkarski_Okon_Beata_Stepien,Wierzbica,firma.html"|"Sklep Wędkarski Okoń Beata Stępień")|Wierzbica, Na Skarpie 26| tel. 509-033-984|
+Wierzbica.raw|||P|=HIPERŁĄCZE("http://www.zumi.pl/2351732,Danseb._Czesci_do_tirow,Wierzbica,firma.html"|"Danseb. Części do tirów")|Wierzbica, Wierzbica 20| tel. 607-701-127|
+Wierzbica.raw|||P|=HIPERŁĄCZE("http://www.zumi.pl/2207962,FHU_Mat_Bud_Edyta_Szafranska,Wierzbica,firma.html"|"FHU Mat Bud Edyta Szafrańska")|Wierzbica, Wierzbica 46a| tel. (22) 793-27-96|
+Wierzbica.raw|||P|=HIPERŁĄCZE("http://www.zumi.pl/2062247,Linevent_s.c._Organizacja_konferencji,Wierzbica,firma.html"|"Linevent s.c. Organizacja konferencji")|Wierzbica, Wierzbica 9| tel. (22) 396-14-49|
+Wierzbica.raw|||P|=HIPERŁĄCZE("http://www.zumi.pl/2696207,PPHU_Meblo-Koncept_Robert_Dukowski._Meble_na_wymiar__produkcja_mebli,Wierzbica,firma.html"|"PPHU Meblo-Koncept Robert Dukowski. Meble na wymiar, produkcja mebli")|Wierzbica, Wierzbica 69| tel. 507-430-928|
+Wierzbica.raw|||P|=HIPERŁĄCZE("http://www.zumi.pl/1570049,Stacja_Paliw_PKN_Orlen_S.A.,Wierzbica,firma.html"|"Stacja Paliw PKN Orlen S.A.")|Wierzbica, Wierzbica | tel. (22) 782-76-23|
+Wierzbica.raw|||P|=HIPERŁĄCZE("http://www.zumi.pl/1944331,ZA_Fruit_Sp._z_o.o.,Wierzbica,firma.html"|"ZA Fruit Sp. z o.o.")|Wierzbica, Wierzbica 11| tel. 660-777-791|
+Wierzbica.raw|||P|=HIPERŁĄCZE("http://www.zumi.pl/2606385,Zloty_Lin,Wierzbica,firma.html"|"Złoty Lin")|Wierzbica, Wierzbica 9| tel. (22) 782-71-08|
+Wierzbica.raw|||P|=HIPERŁĄCZE("http://www.zumi.pl/2728116,APJ_Diesel_Service._Diesel__pompy_wtryskowe__wtryskiwacze,Wierzbica,firma.html"|"APJ Diesel Service. Diesel, pompy wtryskowe, wtryskiwacze")|Wierzbica, WIOSENNA 14| tel. (22) 614-03-10|

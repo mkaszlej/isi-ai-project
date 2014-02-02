@@ -1,0 +1,32 @@
+Prażmów.raw|||P|=HIPERŁĄCZE("http://www.zumi.pl/2604461,Bankomat_Bank_BPS,Prazmow,firma.html"|"Bankomat Bank BPS")|Prażmów, Czołchańskiego 4|Prażmów.raw|||P|=HIPERŁĄCZE("http://www.zumi.pl/2638635,Bankomat_MR_Bank_SA,Prazmow,firma.html"|"Bankomat MR Bank SA")|Prażmów, Czołchańskiego 1|Prażmów.raw|||P|=HIPERŁĄCZE("http://www.zumi.pl/2520897,Bank_Spoldzielczy_w_Piasecznie_Filia_w_Prazmowie_%28Urzad_Gminy%29,Prazmow,firma.html"|"Bank Spółdzielczy w Piasecznie Filia w Prażmowie (Urząd Gminy)")|Prażmów, Czołchańskiego 1| tel. (22) 736-00-70|
+Prażmów.raw|||P|=HIPERŁĄCZE("http://www.zumi.pl/203983,Fryzjer_Izabella_Iwona_Pyrka,Prazmow,firma.html"|"Fryzjer Izabella Iwona Pyrka")|Prażmów, Czołchańskiego 15d| tel. (22) 727-00-50|
+Prażmów.raw|||P|=HIPERŁĄCZE("http://www.zumi.pl/230670,Gminny_Osrodek_Pomocy_Spolecznej,Prazmow,firma.html"|"Gminny Ośrodek Pomocy Społecznej")|Prażmów, Czołchańskiego 17| tel. (22) 727-05-26|
+Prażmów.raw|||P|=HIPERŁĄCZE("http://www.zumi.pl/2352628,PPHU_Gawegpol._Ekogroszek__wegiel,Prazmow,firma.html"|"PPHU Gawęgpol. Ekogroszek, węgiel")|Prażmów, Czołchańskiego 10| tel. (22) 727-07-00|
+Prażmów.raw|||P|=HIPERŁĄCZE("http://www.zumi.pl/1567199,Przychodnia_weterynaryjna,Prazmow,firma.html"|"Przychodnia weterynaryjna")|Prażmów, Czołchańskiego 4| tel. (22) 727-06-02|
+Prażmów.raw|||P|=HIPERŁĄCZE("http://www.zumi.pl/2147434,Trans-Zbyt._Skup_zlomu_i_metali_kolorowych,Prazmow,firma.html"|"Trans-Zbyt. Skup złomu i metali kolorowych")|Prażmów, Czołchańskiego 14| tel. (22) 736-19-84|
+Prażmów.raw|||P|=HIPERŁĄCZE("http://www.zumi.pl/1858558,Urzad_Gminy_Prazmow,Prazmow,firma.html"|"Urząd Gminy Prażmów")|Prażmów, Czołchańskiego 1| tel. (22) 727-05-21|
+Prażmów.raw|||P|=HIPERŁĄCZE("http://www.zumi.pl/2495670,Abw_Agrocentrum_Lugowscy_Andrzej_Lugowski,Prazmow,firma.html"|"Abw Agrocentrum Ługowscy Andrzej Ługowski")|Prażmów, Kasztanów 4| tel. (22) 727-06-81|
+Prażmów.raw|||P|=HIPERŁĄCZE("http://www.zumi.pl/2495527,Abw_Agrocentrum_Lugowscy_Stanislawa_Lugowska,Prazmow,firma.html"|"Abw Agrocentrum Ługowscy Stanisława Ługowska")|Prażmów, Kasztanów 4| tel. (22) 727-06-81|
+Prażmów.raw|||P|=HIPERŁĄCZE("http://www.zumi.pl/2232769,Elevax_Sp._z_o.o.,Prazmow,firma.html"|"Elevax Sp. z o.o.")|Prażmów, Kasztanów 4| tel. (22) 811-82-42|
+Prażmów.raw|||P|=HIPERŁĄCZE("http://www.zumi.pl/2347827,Stara_Gorzelnia,Prazmow,firma.html"|"Stara Gorzelnia")|Prażmów, Kasztanów 4| tel. 516-788-546|
+Prażmów.raw|||P|=HIPERŁĄCZE("http://www.zumi.pl/2376313,Vegmar_Jakub_Krawczyk,Prazmow,firma.html"|"Vegmar Jakub Krawczyk")|Prażmów, Kasztanów 4| tel. 602-139-935|
+Prażmów.raw|||P|=HIPERŁĄCZE("http://www.zumi.pl/1573033,Wzm_Bud_Serwis_Sp_z_o.o.,Prazmow,firma.html"|"Wzm Bud Serwis Sp z o.o.")|Prażmów, Kasztanów 4| tel. (22) 727-08-94|
+Prażmów.raw|||P|=HIPERŁĄCZE("http://www.zumi.pl/2455253,Handel_Obwozny_Uslugi_Transportowe_Brzeszczak_Tadeusz,Prazmow,firma.html"|"Handel Obwoźny Usługi Transportowe Brzeszczak Tadeusz")|Prażmów, Puszczyka 16| tel. (22) 727-03-01|
+Prażmów.raw|||P|=HIPERŁĄCZE("http://www.zumi.pl/2702947,Agnes_Agnieszka_Anna_Miszewska__obuwie__sprzedaz_obuwia,Prazmow,firma.html"|"Agnes Agnieszka Anna Miszewska, obuwie, sprzedaż obuwia")|Prażmów, Ryxa 57|Prażmów.raw|||P|=HIPERŁĄCZE("http://www.zumi.pl/2913576,Akademia_Zosi_Samosi._Opieka_nad_dzieckiem,Prazmow,firma.html"|"Akademia Zosi Samosi. Opieka nad dzieckiem")|Prażmów, Ryxa 78b| tel. 509-867-113|
+Prażmów.raw|||P|=HIPERŁĄCZE("http://www.zumi.pl/2199106,Amb,Prazmow,firma.html"|"Amb")|Prażmów, Ryxa 10| tel. 501-548-102|
+Prażmów.raw|||P|=HIPERŁĄCZE("http://www.zumi.pl/1804702,Apteka_pod_Debem,Prazmow,firma.html"|"Apteka pod Dębem")|Prażmów, Ryxa 76A| tel. (22) 736-13-52|
+Prażmów.raw|||P|=HIPERŁĄCZE("http://www.zumi.pl/514994,Biblioteka_Publiczna_Gminy_Prazmow,Prazmow,firma.html"|"Biblioteka Publiczna Gminy Prażmów")|Prażmów, Ryxa 72| tel. (22) 736-28-16|
+Prażmów.raw|||P|=HIPERŁĄCZE("http://www.zumi.pl/2981823,Carrefour_Express,Prazmow,firma.html"|"Carrefour Express")|Prażmów, Ryxa 76a| tel. 694-451-562|
+Prażmów.raw|||P|=HIPERŁĄCZE("http://www.zumi.pl/2602395,Danpol_Zaklad_Produkcji_Mebli,Prazmow,firma.html"|"Danpol Zakład Produkcji Mebli")|Prażmów, Ryxa 27| tel. (22) 727-05-66|
+Prażmów.raw|||P|=HIPERŁĄCZE("http://www.zumi.pl/2084649,Delikatesy_Pod_Debem,Prazmow,firma.html"|"Delikatesy Pod Dębem")|Prażmów, Ryxa 76a| tel. (22) 736-13-65|
+Prażmów.raw|||P|=HIPERŁĄCZE("http://www.zumi.pl/2197840,Kosmetyka_Ogrodow_Monika_Michalska,Prazmow,firma.html"|"Kosmetyka Ogrodów Monika Michalska")|Prażmów, Ryxa 9a| tel. (22) 727-02-13|
+Prażmów.raw|||P|=HIPERŁĄCZE("http://www.zumi.pl/242832,PHU_Tomasz_Domaniak,Prazmow,firma.html"|"PHU Tomasz Domaniak")|Prażmów, Ryxa 22| tel. (22) 727-06-11|
+Prażmów.raw|||P|=HIPERŁĄCZE("http://www.zumi.pl/2557928,Posterunek_Policji_w_Prazmowie,Prazmow,firma.html"|"Posterunek Policji w Prażmowie")|Prażmów, Ryxa 53| tel. (22) 727-05-87|
+Prażmów.raw|||P|=HIPERŁĄCZE("http://www.zumi.pl/580470,Publiczne_Gimnazjum_im_Izabeli_i_Bronislawa_Ryxow_w_Prazmowie,Prazmow,firma.html"|"Publiczne Gimnazjum im Izabeli i Bronisława Ryxów w Prażmowie")|Prażmów, Ryxa 72| tel. (22) 727-06-91|
+Prażmów.raw|||P|=HIPERŁĄCZE("http://www.zumi.pl/1559902,Radpol_S.C.,Prazmow,firma.html"|"Radpol S.C.")|Prażmów, Ryxa 57| tel. (22) 424-98-94|
+Prażmów.raw|||P|=HIPERŁĄCZE("http://www.zumi.pl/1851940,Stolarnia_Arbor,Prazmow,firma.html"|"Stolarnia Arbor")|Prażmów, Ryxa 57| tel. 603-053-540|
+Prażmów.raw|||P|=HIPERŁĄCZE("http://www.zumi.pl/1765559,Stricte_Sp_z_o.o.,Prazmow,firma.html"|"Stricte Sp z o.o.")|Prażmów, Ryxa 9| tel. (22) 727-03-07|
+Prażmów.raw|||P|=HIPERŁĄCZE("http://www.zumi.pl/160620,Szkola_Podstawowa_w_Prazmowie,Prazmow,firma.html"|"Szkoła Podstawowa w Prażmowie")|Prażmów, Ryxa 72| tel. (22) 727-08-04|
+Prażmów.raw|||P|=HIPERŁĄCZE("http://www.zumi.pl/1861720,Zakrzewski_Basses,Prazmow,firma.html"|"Zakrzewski Basses")|Prażmów, Ryxa 57| tel. (22) 726-70-67|
+Prażmów.raw|||P|=HIPERŁĄCZE("http://www.zumi.pl/2565503,FHU_Automobile_Szczepan_Bieniek,Prazmow,firma.html"|"FHU Automobile Szczepan Bieniek")|Prażmów, Zakole 12| tel. 606-570-122|
+Prażmów.raw|||P|=HIPERŁĄCZE("http://www.zumi.pl/2659535,Kulik_Constructions_Michal_Kulik,Prazmow,firma.html"|"Kulik Constructions Michał Kulik")|Prażmów, Zakole 34| tel. 889-251-097|
