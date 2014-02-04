@@ -1,0 +1,194 @@
+\documentclass[a4 122pt]{article}
+
+\usepackage{color}
+\usepackage{polski}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{todonotes}
+\usepackage{geometry}
+\usepackage{hyperref}
+
+\geometry{
+  body={6.5in, 8.5in},
+  left=0.7in,
+  top=0.8in,
+  bottom=0.8in
+}
+
+\title{Projekt i realizacja agenta do okresowego monitorowania treści wskazanych stron internetowych i raportowania zmian treści na tych stronach.}
+\author{Projekt na przedmiot \textbf{ISI}\\Michał Kaszlej}
+
+
+
+\begin{document}
+
+\maketitle
+
+	\section{Wybór dziedziny}
+
+		\subsection{Motywacja}
+		
+			Przystępując do implementacji agenta, chciałem tak wyznaczyć dziedzinę jego działania aby powstała aplikacja była czymś więcej niż tylko projektem na zaliczenie.
+			
+			Takie założenie skierowało moją uwagę na problem który w ostatnim czasie stanął przed grupą znajomych socjologów zaangażowanych w tworzenie projektu 
+			\href{http://ozkultura.pl}{Obserwatorium żywej kultury} nazywanego też dalej OŻK.
+
+		\subsection{Obserwatorium żywej kultury}
+		
+			Obserwatorium żywej kultury jest szeroko zakrojonym projektem skoncentrowanym na zbieraniu i gromadzeniu wiedzy i informacji pomocnych w badaniach socjologicznych.
+			
+			Jednym z głównych składników projektu jest tworzenie ogólnopolskiej mapy przejawów \href{http://ozkultura.pl/node/111}{żywej kultury}:
+			
+			\begin{quote}
+				\textit{Żywa kultura to wielowymiarowe środowisko (milieu) życia jednostek i grup społecznych oraz funkcjonowania instytucji społecznych, w którym zachodzą dynamiczne procesy, rozwijają się praktyki kulturowe, powstają  mniej lub bardziej trwałe rezultaty (materialne i niematerialne wytwory) praktyk. Zarówno jednostki, grupy, instytucje, procesy, praktyki, jak i ich wytwory charakteryzują się zróżnicowanym, najczęściej wielowarstwowym i zmiennym  nacechowaniem aksjologicznym oraz zróżnicowanymi, zmiennymi i wielowarstwowymi, najczęściej polisemicznymi, znaczeniami.}
+			\end{quote}
+			
+			W takim rozumieniu każdy sklep mięsny, czy basen jest przejawem żywej kultury i informacja o jego istnieniu powinna zostać uwzględniona w Obserwatorium żywej kultury.
+
+		\subsection{Przyjęte metody pozyskiwania danych do OŻK}
+
+			Dane pozyskiwane są przez uczestników projektu poprzez przeszukiwanie internetu i wypełnianie odpowiednich pól w arkuszu kalkulacyjnym.
+			
+			Poniżej znajduje się wyciąg z instrukcji dotyczącej pozyskiwania danych dla OŻK:
+			
+			
+			\begin{quote}
+
+				\textit{5) Danych poszukujemy w następujący sposób:\\
+				Generalna uwaga: przeszukujemy strony sięgając najdalej do 10 pierwszych adresów;}
+				
+				
+				\begin{itemize}
+				
+					\item \textit{punktem wyjścia są oficjalne strony GMIN, oficjalne strony MIAST i POWIATÓW oraz LINKI do nich opisujące kategorie infrastrukturalne wymienione w tesaurusie;}
+					\item \textit{niektóre gminy i powiaty mają bardzo dobre strony w wikipedii;}
+					\item \textit{warto sprawdzić informacje z BIP, ale to raczej dla porządku}
+					\item \textit{trzeba uważać i sprawdzać – np. na stronie powiatu jest link do sal bankietowych w powiecie; wchodzimy: sale są podane tylko w miejscowościach, bez zaznaczenia jaka to gmina – trzeba oczywiście sprawdzić gminę!}
+					\item \textit{dla wielu prywatnych kategorii infrastrukturalnych może być pomocna PANORAMA FIRM i lub REGON}
+					\item \textit{warto przejrzeć też strony i portale tematyczne: informacji kulturalnych dla województwa i powiatów, chórtownia, regiopedia, kultura ludowa itp.}
+				\end{itemize}
+				
+				\textit{6) UWAGA : cały sens tego badania polega na STARANNOŚCI.}
+			\end{quote}
+	
+			Ponadto każdy uczestnik odpowiada wyłącznie za ograniczony i określony zbiór gmin.
+			Poniżej zamieszczam wykaz gmin przydzielonych mojej znajomej:
+			
+			\vspace{0.5cm}
+			\begin{center}
+			\begin{tabular}{cccc}
+				\centering
+				
+				\textbf{Miasta} & \textbf{Gminy miejske} & \textbf{Gminy miejsko-wiejskie} & \textbf{Gminy wiejskie} \\ \hline
+				Góra Kalwaria		 	& 	Pionki 	& Iłża 				& Gózd \\\hline
+				Konstancin-Jeziorna 	&	Sierpc	& Skaryszew			& Jastrzębia\\\hline
+				Piaseczno				&			& Góra Kalwaria		& Jedlińsk\\\hline
+				Tarczyn					&			& Konstancin-Jeziorna & Jedlnia-Letnisko\\\hline
+				Pionki					&			& Piaseczno				& Kowala\\\hline
+				Iłża					&			& Tarczyn			&	Pionki	\\\hline
+				Skaryszew				&			&	Lesznowola		&	Przytyk \\\hline
+				Prażmów					&			&					& Wierzbica\\\hline
+																	& & & Wolanów\\ \hline
+																	& & & Zakrzew\\\hline
+																	& & & Gozdowo\\\hline
+																	& & & Mochowo\\\hline
+																	& & & Rościszewo\\\hline
+																	& & & Sierpc\\\hline
+																	& & & Szczutowo\\\hline
+																	& & & Zawidz\\
+			\end{tabular}
+			\end{center}
+	
+		\subsection{Zbierane dane}
+
+			Zbieranie danych polega na wypełnianiu oddzielnego akrusza dla każdej gminy.
+			Każdy arkusz zawiera następujące kolumny:
+			
+			\begin{enumerate}
+				\item{Nazwa gminy lub miasta na prawach powiatu}
+				\item{Numer TERYT}
+				
+					Każdej gminie w Polsce przypisany jest numer TERYT. 
+					
+				\item{Indeks kategorii}
+				
+					Przypisanie obiektu do jednej z 28 kategorii, według \href{http://ozkultura.pl/node/1800}{zamieszczonej na stronie tabeli}.
+					
+				\item{Kategoria własności obiektu}
+					
+					Możliwe wartości:
+					\begin{itemize}
+						\item P = prywatna
+						\item S = samorządowa
+						\item PA = państwowa (budżetowa)
+						\item N = NGO's (organizacje pozarządowe)
+						\item I = inne (np. mieszany typ, współprowadzenie itd.)
+					\end{itemize}
+					
+				\item{Nazwa obiektu}
+				\item{Adres obiektu}
+				\item{Telefon/Email}
+				\item{Liczba miejsc/Zatrudnienie}
+				\item{Liczba funkcji obiektu}
+				
+					Cytat z instrukcji wypełniania:
+					
+					\begin{quote}
+					\textit{Wpisujemy symbol 1 = instytucja lub organizacja ma tylko 1 funkcję podstawową ( np.: jest biblioteką , nieważne, że odbywają się w niej różne zajęcia); symbol 2 = pod jedną nazwą i adresem realizowane są 2 lub więcej funkcji (np.: w Centrum Kultury jest Kino wymienione z nazwy, a nie napisano, że Centrum ma salę kinową);}
+					\end{quote}
+				
+				\item{PRZYPADKI WĄTPLIWE}
+				
+					Możliwe wartości:
+					\begin{itemize}
+						\item I = brak przypisania do kategorii
+						\item FW = brak informacji na temat formy własności
+						\item BD = brak części danych
+						\item NA = wątpliwość dotycząca aktualności danych
+					\end{itemize}
+					
+			\end{enumerate}
+	
+		\subsection{Ocena przyjętego w OŻK sposobu pozyskiwania danych}
+		
+			Ogrom pracy  stojący nad członkiem projektu OŻK jest niewyobrażalny.
+			Stoi on przed zadaniem zindeksowania wszelkich przejawów kultury na ogromnym obszarze.
+			
+			Jego zadaniem jest przeglądanie internetu w poszukiwaniu pływalni, kościołów, sklepów spożywczych itp i skrzętne wprowadzanie ich do arkusza.
+			
+			Jest to praca zakrojona na tygodnie, jeśli nie miesiące.
+			
+			Wydaje mi się, że znacznie lepszy efekt uzyskać można poprzez zastosowanie agenta i poświęcenie zarezerwowanego czasu na weryfikację poprawności wyników. 
+			
+			Aby odzyskać zapracowanych znajomych, zdecydowałem się więc na takie właśnie określenie dziedziny implementowanego agenta. 
+	
+	\section{Źródła pozyskiwania danych}
+		
+			Realizację projektu rozpocząłem od zbadania możliwych źródeł pozyskiwania danych.
+		
+			Założyłem, że rozwiązaniem optymlanym byłoby uzyskanie możliwie dużej liczby danych przy możliwie niewielkiej liczbie źródeł.
+			Założenie takie wynika z faktu, że im więcej źródeł, tym większy stopień komplikacji agenta.
+			
+			\subsection{KRS}
+			
+				Na stronie Ministerstwa sprawiedliwości znajduje się \href{https://ems.ms.gov.pl/krs/wyszukiwaniepodmiotu?t:lb=t}{wyszukiwarka numerów Krajowego Rejestru Sądowego.}
+		
+			\subsection{BiP}
+			
+			\subsection{Wikipedia}
+			
+			\subsection{Google}
+			
+			\subsection{zumi}
+			
+	\section{Koncepcja projektu}
+	
+		Niezbędne jest stworzenie programu który
+		
+	\section{Przetwarzanie danych}
+	
+	\section{Realizacja projektu}
+	
+	\section{Możliwości rozszerzenia agenta}
+\end{document}	
