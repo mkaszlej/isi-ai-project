@@ -25,26 +25,28 @@
 
 \maketitle
 
-	\section{Wybór dziedziny}
+	\section{Dziedzina zastosowań agenta}
 
 		\subsection{Motywacja}
 		
-			Przystępując do implementacji agenta, chciałem tak wyznaczyć dziedzinę jego działania aby powstała aplikacja była czymś więcej niż tylko projektem na zaliczenie.
+			Przystępując do implementacji agenta, chciałem tak wyznaczyć dziedzinę jego działania aby powstała aplikacja była czymś więcej niż tylko jednorazowym projektem na zaliczenie.
 			
-			Takie założenie skierowało moją uwagę na problem który w ostatnim czasie stanął przed grupą znajomych socjologów zaangażowanych w tworzenie projektu 
-			\href{http://ozkultura.pl}{Obserwatorium żywej kultury} nazywanego też dalej OŻK.
+			Takie założenie skierowało moją uwagę na problem, który w ostatnim czasie stanął przed grupą znajomych socjologów zaangażowanych w tworzenie projektu 
+			\href{http://ozkultura.pl}{Obserwatorium żywej kultury} (nazywanego też dalej OŻK).
 
 		\subsection{Obserwatorium żywej kultury}
 		
 			Obserwatorium żywej kultury jest szeroko zakrojonym projektem skoncentrowanym na zbieraniu i gromadzeniu wiedzy i informacji pomocnych w badaniach socjologicznych.
 			
-			Jednym z głównych składników projektu jest tworzenie ogólnopolskiej mapy przejawów \href{http://ozkultura.pl/node/111}{żywej kultury}:
+			Jednym z głównych składników projektu jest tworzenie ogólnopolskiej mapy przejawów \href{http://ozkultura.pl/node/111}{żywej kultury}[1]:
 			
 			\begin{quote}
 				\textit{Żywa kultura to wielowymiarowe środowisko (milieu) życia jednostek i grup społecznych oraz funkcjonowania instytucji społecznych, w którym zachodzą dynamiczne procesy, rozwijają się praktyki kulturowe, powstają  mniej lub bardziej trwałe rezultaty (materialne i niematerialne wytwory) praktyk. Zarówno jednostki, grupy, instytucje, procesy, praktyki, jak i ich wytwory charakteryzują się zróżnicowanym, najczęściej wielowarstwowym i zmiennym  nacechowaniem aksjologicznym oraz zróżnicowanymi, zmiennymi i wielowarstwowymi, najczęściej polisemicznymi, znaczeniami.}
 			\end{quote}
 			
-			W takim rozumieniu każdy sklep mięsny, czy basen jest przejawem żywej kultury i informacja o jego istnieniu powinna zostać uwzględniona w Obserwatorium żywej kultury.
+			W takim rozumieniu każdy sklep mięsny, czy basen jest przejawem żywej kultury i informacja o jego istnieniu powinna zostać uwzględniona w OŻK.
+			
+			Wiąże się to z dużą akcją pozyskiwania wiedzy - w którą (częściowo odpłatnie) zaangażowani są studenci.
 
 		\subsection{Przyjęte metody pozyskiwania danych do OŻK}
 
@@ -113,7 +115,7 @@
 					
 				\item{Indeks kategorii}
 				
-					Przypisanie obiektu do jednej z 28 kategorii, według \href{http://ozkultura.pl/node/1800}{zamieszczonej na stronie tabeli}.
+					Przypisanie obiektu do jednej z 28 kategorii, według \href{http://ozkultura.pl/node/1800}{zamieszczonej na stronie OŻK tabeli kategorii}[2].
 					
 				\item{Kategoria własności obiektu}
 					
@@ -152,14 +154,15 @@
 	
 		\subsection{Ocena przyjętego w OŻK sposobu pozyskiwania danych}
 		
-			Ogrom pracy  stojący nad członkiem projektu OŻK jest niewyobrażalny.
+			Ogrom pracy  stojący przed członkiem projektu OŻK jest niewyobrażalny.
 			Stoi on przed zadaniem zindeksowania wszelkich przejawów kultury na ogromnym obszarze.
 			
 			Jego zadaniem jest przeglądanie internetu w poszukiwaniu pływalni, kościołów, sklepów spożywczych itp i skrzętne wprowadzanie ich do arkusza.
 			
-			Jest to praca zakrojona na tygodnie, jeśli nie miesiące.
+			Jest to praca zakrojona na tygodnie, jeśli nawet nie miesiące.
 			
-			Wydaje mi się, że znacznie lepszy efekt uzyskać można poprzez zastosowanie agenta i poświęcenie zarezerwowanego czasu na weryfikację poprawności wyników. 
+			Wydaje mi się, że znacznie lepszy efekt uzyskać można poprzez zastosowanie prostego agenta do pozyskiwania danych.
+			Zaoszczędzony w ten sposób czas można poświęcić na weryfikację poprawności wyników jego działania. 
 			
 			Aby odzyskać zapracowanych znajomych, zdecydowałem się więc na takie właśnie określenie dziedziny implementowanego agenta. 
 	
@@ -167,28 +170,188 @@
 		
 			Realizację projektu rozpocząłem od zbadania możliwych źródeł pozyskiwania danych.
 		
-			Założyłem, że rozwiązaniem optymlanym byłoby uzyskanie możliwie dużej liczby danych przy możliwie niewielkiej liczbie źródeł.
+			Założyłem, że rozwiązaniem optymalnym byłoby uzyskanie możliwie dużej liczby danych przy możliwie niewielkiej liczbie źródeł.
 			Założenie takie wynika z faktu, że im więcej źródeł, tym większy stopień komplikacji agenta.
+			
+			Poniżej prezentuję kolejno sprawdzane przezemnie źródła danych. 
+			W tej chwili wykorzystałem tylko jedno z nich, niemniej - mysląc przyszłościowo -dodanie dowolnego podanego niżej źródła stanowiłoby wartościowe rozszerzenie funkcjonalności agenta.
 			
 			\subsection{KRS}
 			
 				Na stronie Ministerstwa sprawiedliwości znajduje się \href{https://ems.ms.gov.pl/krs/wyszukiwaniepodmiotu?t:lb=t}{wyszukiwarka numerów Krajowego Rejestru Sądowego.}
-		
+				
+				Dzięki tej wyszukiwarce możliwe jest w łatwy sposób znalezienie wszystkich instytucji zarejestrownych w Krajowym Rejestrze Sądowym.
+				
+				Dalsze badania wykazały jednak, że formularz jest odpowiednio zabezpieczony, co komplikuje przygotowanie agenta.
+				
+				Dużym minusem jest też fakt, że w ten sposób ograniczę pozyskiwane dane, wyłącznie do tych istniejących w KRS, pomijając wiele obiektów żywej kultury.
+				
 			\subsection{BiP}
 			
-			\subsection{Wikipedia}
-			
+				\href{http://www.bip.gov.pl/}{Biuletyn Informacji Publicznej} zawiera bazę podmiotów wykonujących zadania publiczne. 
+				W szczególności są to instytucje państwowe.
+				
+				Na stronie znajduje się odnośnik, który umożliwia pobranie danych wszystkich podmiotów w pliku xml.
+				
+				Po analizie pliku okazało się, że baza BiP jest stosunkowo niewielka i przeterminowana - niewystarczająca jako samodzielne źródło danych. 
+				
 			\subsection{Google}
 			
-			\subsection{zumi}
+				Zaimplemetowanie w agencie mechanizmów pozwalających na wyszukiwanie żywej kultury poprzez google wydawało się świetnym pomysłem.
+				
+				Po krótkich badaniach, ze względu na stopień niezbędnej elastyczności agenta uznałem tę opcję za zbyt skomplikowaną.
 			
-	\section{Koncepcja projektu}
-	
-		Niezbędne jest stworzenie programu który
-		
-	\section{Przetwarzanie danych}
+			\subsection{Serwis zumi.pl}
+			
+				W końcu, inspirowany wymienioną w instrukcji do badania "Panoramą Firm" - trafiłem na serwis który zawiera już wszystkie poszukiwane przez OŻK informacje.
+				Co więcej informacje te są dostępne publicznie oraz zorganizowane w łatwy do obsłużenia sposób.\\
+				
+				\noindent Zumi zawiera dane obejmujące niemal wszystkie \href{http://ozkultura.pl/node/1800}{kategorie}[2] poszukiwane przez OŻK.
+				W serwisie znajdziemy zarówno urzędy państwowe, parafie, sklepy, warsztaty, pokoje do wynajęcia - dokładnie to czego poszukją członkowie projektu OŻK.\\
+				
+				\noindent Dodatkowo format odnośników przyjęty przez portal, znacznie ułatwia wdrożenie agenta.
+				Listę firm dla konkretnego miasta otrzymujemy poprzez analizę odnośnika:\\
+				
+				\texttt{http://www.zumi.pl/lista-firm/<województwo>-<miasto>}\\
+				
+				\noindent Przykładowo dla Tarczyna:\\
+				
+				\texttt{http://www.zumi.pl/lista-firm/mazowieckie-Tarczyn}
 	
 	\section{Realizacja projektu}
 	
-	\section{Możliwości rozszerzenia agenta}
+		\subsection{Implementacja}
+	
+			Projekt został napisany w języku Java.
+			Do parsowania HTML wykorzystywana jest biblioteka \href{http://jsoup.org/}{jsoup}.
+			Dane zapisywane są w bazie \href{http://www.sqlite.org/}{SQlite} z wykorzystaniem sterownika \href{https://bitbucket.org/xerial/sqlite-jdbc}{JDBC-sqlite}. 
+			Zapewnione zostały też mechanizmy pozwalające na łatwe generowanie plików Excel z danych zapisanych w bazach.
+	
+		\subsection{Podział na podproblemy}
+		
+			Arkusz, wypełniany ręcznie przez członków projektu OŻK składał się z 10 kolumn (patrz sekcja 1.4).
+			Kolumny te powinny być wypełnione danymi, które znajdują się w różnych lokalizacjach w sieci.
+			
+			Aby uniknąć zbędnych komplikacji, proces pozyskiwania danych podzielono na pięć etapów:
+			\begin{enumerate}
+				\item Uzyskanie numeru TERYT
+				\item Uzyskanie listy obiektów
+				\item Skompletowanie danych obiektu
+				\item Przypisanie obiektu do kategorii
+				\item Zapis danych do bazy
+			\end{enumerate}
+			
+			W kolejnych sekcjach opisane zostaną szczegółowo poszczególne etapy.
+		
+		\subsection{Uzyskanie numeru TERYT}
+		
+			Numer TERYT uzyskujemy jednorazowo dla każdej gminy na samym początku przetwarzania.
+			
+			Baza numerów TERYT udostępniana jest przez \href{http://www.stat.gov.pl}{Główny Urząd Statystyczny}, numer uzyskujemy korzystając z poniższego URL:\\
+			
+			\noindent \texttt{http://www.stat.gov.pl/broker/access/performSearch.jspa?searchString="+<nazwaGminy>+}\\
+			\noindent \texttt{"\&level=gmi\&wojewodztwo=<TERYTwojewodztwa>\&powiat=\&gmina=\&miejscowosc=\&advanced=true}\\
+			
+			\noindent Przy czym \texttt{<TERYTwojewodztwa>} odczytujemy wcześniej w analogiczny sposób.
+			Numer TERYT jest przechowywany i dodawany do każdego rekordu gminy której dotyczy.
+			
+		\subsection{Uzyskanie listy obiektów}
+		
+			Listę obiektów (bądź podstron zawierających obiekty) kompletujemy na początku przetwarzania, jednorazowo dla każdej gminy.
+			Możemy ją otrzymać korzystając z URL:
+			
+			\noindent \texttt{http://www.zumi.pl/lista-firm/<województwo>-<miasto>}\\
+		
+			\noindent W przypadku większych gmin/miejscowości dostępny jest podział firm według ulic. W tym celu parsujemy zawartość obiektu HTML o klasie \texttt{streetsInCity}.\\
+			
+			\noindent Dla małych gmin, może się zdarzyć, że podział na ulice nie będzie dostępny.
+			W takim przypadku zumi oferuje nam podział według poularnych branż - wyszukując obiekty z okolicy.
+			W tym celu badamy zawartość obiektu HTML o klasie \texttt{popularCategories}.
+			
+			\noindent W przypadku gdy badamy branże - może się zdarzyć, że obiekty które przeglądamy pochodzą z sąsiednich gmin.
+			Niestety w chwili obecnej nie ma mechanizmu weryfikacji takich zdarzeń.
+			
+			
+		\subsection{Skompletowanie danych obiektu}
+		
+			W następnej kolejności rozpoczynamy przetwarzanie kolejnych obiektów.
+			
+			W wyniku poprzedniego kroku (uzyskanie listy obiektów) możemy od razu odczytać nazwę, adres oraz telefon obiektu.
+			Lista zawiera też odnośnik do podstrony opisującej dany obiekt. Przykładowo:\\
+			
+			\texttt{http://www.zumi.pl/2961559,Browar\_Tarczyn\_Sp.\_z\_o.o.,Tarczyn,firma.html\#aboutPage}\\
+			
+			Z parsowania podstrony \texttt{\#aboutPage} otrzymujemy email, formę własności oraz ilość zatrudnienia. 
+			Odczytana forma własności, jest dodatkowo mapowana wewnętrznie, tak aby w miarę możliwości pasowała do zdefiniowanych kategorii:
+					\begin{itemize}
+						\item P = prywatna
+						\item S = samorządowa
+						\item PA = państwowa (budżetowa)
+						\item N = NGO's (organizacje pozarządowe)
+						\item I = inne (np. mieszany typ, współprowadzenie itd.)
+					\end{itemize}
+			
+			\noindent Często zdarza się taka sytuacja, że na stronie \texttt{\#aboutPage} brakuje emaila, formy własności lub ilości zatrudnienia.
+			Dla dwóch ostatnich przypadków uzupełniamy pole uwagi odpowiednio wartością "FW"(forma własności) lub "BD"(brak danych).  
+		
+		\subsection{Przypisanie obiektu do kategorii}
+	
+			Lista kategorii - a właściwie tagów nadanych przez zumi - znajduje się w podstronie \texttt{\#homePage}. Przykładowo: \\
+	
+			\texttt{http://www.zumi.pl/2961559,Browar\_Tarczyn\_Sp.\_z\_o.o.,Tarczyn,firma.html\#homePage}\\
+			
+			Kategorie te po parsowaniu, porównujemy ze stanem bazy danych \textbf{Slowniki}.
+			Baza ta zawiera wprowadzone wcześniej kategorie oraz przypisany im indeks z \href{http://ozkultura.pl/node/1800}{tabeli kategorii przyjętych w OŻK.}[2]
+
+			Dokładniejszy opis klasyfikacji znajduje się w sekcji 4.
+			
+		\subsection{Zapis danych do bazy}
+			
+			Dla każdej gminy tworzona jest oddzielna tabela w bazie danych SQlite.
+			Aby umożliwić wielokrotne przetwarzanie jednej gminy, bez nadpisywania i kolizji nazw - nazwa tabeli ma formę:\\
+			
+			\texttt{<nazwaGminy><czasOdPoczatkuEryUnixa>}\\
+			
+			Tabela zawiera pola zawarte w sekcji 1.4
+	
+	\section{Klasyfikacja obiektów}
+				
+			\subsection{Tabela Slowniki}
+			
+				W bazie danych istnieje tabela Slowniki, zawierająca mapowanie kategorii zumi na kategorie OŻK.
+				Tabela składa się z dwóch kluczowych kolumn: NazwyKategoriiZUMI oraz IndeksuKategoriiOZK.
+				Indeksy kategorii z OZK dostępne są \href{http://ozkultura.pl/node/1800}{na stronie OZK}[2].\\
+			
+				\noindent W początkowym okresie używania agenta, wymgane jest wprowdzenie niewielkiej liczby kategorii oraz przypisanie im mapowania na kategorie OŻK.
+				Następnie, baza powinna uaktualniać się sama. W testach udało się z sukcesem klasyfikować przy bazie zawierającej ponad sześć tysięcy kategorii.\\
+				
+				\noindent Zdaję sobie sprawę z faktu, że przy wielości możliwości klasyfikacji takie rozwiązanie jest bardzo prymitywne. 
+				Na jego obronę mam tylko fakt, że częścią zadań członków projektu OŻK jest rozszrzanie \href{http://ozkultura.pl/node/1800}{tabeli kategorii na stronie OZK}[2].
+				Zebrany w celu klasyfikacji materiał z pewnością ułatwi im zadanie.
+				
+			\subsection{Przetwarzanie listy kategorii}
+			
+			Zakładamy, że mamy odczytaną ze strony i sparsowaną listę kategorii.\\
+			
+			\noindent Wykonaj dla każdej kategorii:
+			\begin{itemize}
+				\item Jeżeli taka kategoria nie występuje w bazie Slowniki- oznaczamy ją jako kategorię do dodania.
+				\item Jeżeli występuje ale z indeksem = -1 - oznaczamy ją jako kategorię do odświeżenia.
+				\item Jeżeli występuje i ma indeks $>$ 0 - zliczamy wystąpienie tego indeksu.
+			\end{itemize}
+			
+			\noindent Wyznacz najczęściej występujący indeks kategorii i następnie:
+			\begin{itemize}
+				\item Kategorie oznaczone jako do dodania - dodajemy z tym indeksem
+				\item Kategorie oznaczone jako do odświeżenia - odświeżamy z tym indeksem.
+				\item Zapisujemy najczęściej występujący indeks jako kategorię obiektu
+			\end{itemize}
+			
+			W ten sposób następuje automatyczne ukatualnienie tabeli Słowniki, oraz obiektowi przypisana zostaje kategoria.
+			
+		\section{Bibliografia}
+			
+			\noindent [1] \href{http://ozkultura.pl/node/111}{http://ozkultura.pl/node/111 - Barbara Fatyga, definicja "żywej kultury"}\\
+			\noindent [2] \href{http://ozkultura.pl/node/1800}{Barbara Fatyga, Eliza Gryszko, Aleksandra Orkan-Łęcka, INDEKSY INFRASTRUKTURY INSTYTUCJONALNEJ ŻYWEJ KULTURY, 2013 r.}
+			
 \end{document}	
