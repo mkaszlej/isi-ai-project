@@ -1,0 +1,12 @@
+package crawler;
+
+public class ZumiCrawler {
+
+	public ZumiCrawler(String wojewodztwo, ListArray miasta)
+	{
+		for (String miasto : miasta) {
+			
+		}
+	}
+	
+}

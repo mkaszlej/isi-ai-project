@@ -1,0 +1,222 @@
+package crawler;
+
+
+import java.lang.reflect.Array;
+import java.net.URLEncoder;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
+
+public class SimpleCrawler {
+
+	
+	public SimpleCrawler() {
+		
+	}
+	
+	public static void main(String [] args) 
+	{
+		Baza dbConnection = new Baza();
+		dbConnection.createTables();
+
+		String baseUrl = "http://www.zumi.pl/lista-firm/";
+		String wojewodztwo = "mazowieckie";
+		String nazwaGminyUnparsed = "Serock";
+		String nazwaGminy = URLEncoder.encode(nazwaGminyUnparsed);
+		String url = baseUrl+wojewodztwo+"-"+nazwaGminy;
+		System.out.println("URL: " + url);
+		
+		int TERYT = getTERYT(nazwaGminyUnparsed);
+
+		
+		try{
+			Document document = Jsoup.connect(url)
+										.userAgent("Mozilla/5.0 (Windows; U; WindowsNT 5.1; en-US; rv1.8.1.6) Gecko/20070725 Firefox/2.0.0.6")
+										.referrer("http://www.google.com")
+										.get();
+			Elements streets = document.select(".streetsInCity");
+			Elements links = streets.select("a[href]");
+			for (Element link : links) {
+			    getStreetData(dbConnection , nazwaGminy, TERYT, "http://www.zumi.pl"+link.attr("href"));
+			}
+			
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		
+		List<Rekord> rekordy = dbConnection.selectDane();
+        System.out.println("Lista obiektow:");
+        for(Rekord k: rekordy)
+            System.out.println(k);
+		
+        List<Slownik> slowniki = dbConnection.selectSlownik();
+        System.out.println("Lista kategorii:");
+        for(Slownik s: slowniki)
+            System.out.println(s);
+		
+        
+		dbConnection.closeConnection();
+		
+	}
+	
+	public static void getStreetData(Baza dbConnection, String nazwaGminy, int TERYT, String link)
+	{
+		try{
+			System.out.println("Trying: " + link );
+			
+			//Czekaj około sekundy...
+			Thread.sleep((long)Math.abs((Math.random() * 800 + 1)));
+			
+			Document document = Jsoup.connect(link)
+					.userAgent("Mozilla/5.0 (Windows; U; WindowsNT 5.1; en-US; rv1.8.1.6) Gecko/20070725 Firefox/2.0.0.6")
+					.referrer("http://www.google.com")
+					.get();
+			Elements objects = document.select("[itemprop=itemListElement]");
+			for (Element object : objects) {
+				
+				object.select("[itemprop=name]").text();
+				
+				String nazwa = object.select("[itemprop=name]").text();
+				String href = "http://www.zumi.pl"+object.select("[itemprop=name]").attr("href");
+				String adres = object.select("[itemprop=adress]").text();
+				String telefon = object.select("[itemprop=telephone]").text();
+				System.out.println( "Nazwa obiektu: " + nazwa +
+									"\nLink: "+ href +
+									"\nAdres: "+ adres +
+									"\nTelefon: "+ telefon +
+									"\n#######################################\n"
+									);
+				
+				int infrastruktura = getCategory(dbConnection, href);
+				
+				String kategoria = "";
+				String uwagi = "";
+				String wlasnosc = "";
+				
+				if( infrastruktura < 0 ){
+					kategoria = "";
+					uwagi = "I";
+				}
+				else kategoria = ""+infrastruktura;
+				
+				
+				
+				dbConnection.insertDane(nazwaGminy, TERYT, kategoria , nazwa, adres, telefon, wlasnosc, 1, 1, uwagi );
+				
+			}
+			
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+			
+		
+	}
+	
+	public static int getTERYT(String nazwaGminy)
+	{
+		String url = "http://www.stat.gov.pl/broker/access/performSearch.jspa?searchString="+nazwaGminy+"&level=gmi&wojewodztwo=2217&powiat=&gmina=&miejscowosc=&advanced=true";
+
+		System.out.println(url);
+		try {
+			Document document = Jsoup.connect(url)
+					.userAgent("Mozilla/5.0 (Windows; U; WindowsNT 5.1; en-US; rv1.8.1.6) Gecko/20070725 Firefox/2.0.0.6")
+					.referrer("http://www.google.com")
+					.get();
+
+			Element table = document.select("#row").first();
+			
+			Iterator<Element> ite = table.select("td").iterator();
+			
+			int TERYT = Integer.parseInt(ite.next().text());
+			System.out.println("TERYT: " + TERYT );
+			
+			return TERYT;
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return -1;
+	}
+	
+	public static int getCategory(Baza dbConnection, String url)
+	{
+
+		int infrastruktura = -1;
+		
+		try {
+			Document document = Jsoup.connect(url)
+					.userAgent("Mozilla/5.0 (Windows; U; WindowsNT 5.1; en-US; rv1.8.1.6) Gecko/20070725 Firefox/2.0.0.6")
+					.referrer("http://www.google.com")
+					.get();
+
+			Element div = document.select(".block.blockText.blockKey").first();
+			
+			Iterator<Element> ite = div.select("a").iterator();
+			
+
+			ArrayList<String> toAdd = new ArrayList<>();
+			int[] count = new int[29];
+			for(int i=0; i<29; i++) count[i]=0;
+			
+			while(ite.hasNext())
+			{
+				String text = ite.next().text();
+				String[] category = text.split(",");
+				int result = dbConnection.slownikExsist( category[category.length-1] );
+				
+				//Sprawdz czy jest w bazie i odczytaj wynik
+				if( result == -1 ){
+					//jest w bazie z -1, ewenutalnie edytujemy
+					toAdd.add(category[category.length-1]);
+				}
+				else if( result == 0 )
+				{
+					toAdd.add(category[category.length-1]);
+					//nie ma w bazie
+				}
+				else{
+					//jest w bazie z kategorią
+					infrastruktura = result;
+					count[result]++;
+					System.out.println("CATEGORY exsist: " +  category[category.length-1] );
+				}
+			}
+
+			//znajdz najczęściej używaną kategorię
+			int max = 0;
+			for(int i=0; i<29; i++)
+				if(count[i] > max)
+				{
+					max = count[i];
+					infrastruktura = i;
+				}
+			
+			
+			Iterator<String> ite2 = toAdd.iterator();
+			while(ite2.hasNext())
+			{
+				String value = ite2.next();
+				if(dbConnection.insertSlownik( value, infrastruktura))
+					System.out.println("CATEGORY added: " +  value );
+			}
+			
+			System.out.println("Infrastruktura set to: " + infrastruktura );			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return infrastruktura;
+		
+	}
+	
+}

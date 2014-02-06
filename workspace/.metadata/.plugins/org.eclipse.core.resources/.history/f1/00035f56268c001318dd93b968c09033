@@ -1,0 +1,17 @@
+package crawler;
+
+public class Rekord {
+
+	String nazwa;
+	int TERYT; //Z GUS - PESEL gminy
+	int indeks;
+	String kategoria;
+	/*P= prywatna,
+	 *  S=samorządowa,
+	 *  PA =państwowa (budżetowa),
+	 *  N= NGO's, 
+	 *  I= inne (np. mieszany typ, współprowadzenie itd.)
+	 */
+	
+	
+}

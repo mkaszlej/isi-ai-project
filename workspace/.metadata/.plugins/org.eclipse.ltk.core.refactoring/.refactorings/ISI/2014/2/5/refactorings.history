@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Zmień nazwę pakietu mkaszlej.crawler na mkaszlej.isi&#x0A;- Original project: &apos;ISI&apos;&#x0A;- Element oryginalny: ISI/src/mkaszlej.crawler&#x0A;- Element o zmienionej nazwie: ISI/src/mkaszlej.isi&#x0A;- Aktualizuj odwołania do refaktoryzowanego elementu&#x0A;- Aktualizuj wystąpienia tekstowe w komentarzach i łańcuchach" description="Zmień nazwę pakietu mkaszlej.crawler" flags="589830" hierarchical="false" id="org.eclipse.jdt.ui.rename.package" input="/src&lt;mkaszlej.crawler" name="mkaszlej.isi" qualified="false" references="true" stamp="1391346656544" textual="false" version="1.0"/>
+</session>

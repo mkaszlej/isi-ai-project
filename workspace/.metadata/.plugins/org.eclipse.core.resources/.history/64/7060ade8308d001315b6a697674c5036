@@ -1,0 +1,232 @@
+package crawler;
+
+import java.net.URLDecoder;
+import java.net.URLEncoder;
+import java.util.ArrayList;
+import java.util.Iterator;
+
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
+
+public class ZumiCrawler {
+
+	String bazowyUrl = "http://www.zumi.pl/lista-firm/";
+	String wojewodztwo;
+	String urlPrefiks;
+	ArrayList<String> gminy;
+	
+	Baza dbConnection;
+	
+	public ZumiCrawler(String wojewodztwo, ArrayList<String> gminy)
+	{
+		this.wojewodztwo = wojewodztwo;
+		this.gminy = gminy;
+		
+		Baza dbConnection = new Baza();
+		dbConnection.createTables();
+	
+		this.urlPrefiks = bazowyUrl+wojewodztwo+"-";
+	}
+		
+	public void pelzaj()
+	{
+		for (String gmina : gminy) {
+			zjedzMiasto(gmina);
+		}
+	}
+	
+	private void zjedzMiasto(String gmina)
+	{
+		String kodowanaNazwa = URLEncoder.encode(gmina);
+		
+		/* Dane do bazy: */
+		String kategoria = "";
+		int TERYT = -1;
+		
+		/* 1. zjedz numer TERYT */
+		TERYT = zjedzTERYT(gmina);
+		
+		/* 2. zjedz liste ulic */
+		Elements dane;
+		dane = zjedzListeUlic(kodowanaNazwa);
+		//TODO szukaj po branżach
+		if(dane == null){
+			System.out.println("### BRAK DANYCH DLA GMINY " + gmina);
+			return;
+		}
+		
+		for (Element ulica : dane) {
+		    zjedzUlice(kodowanaNazwa, TERYT, ulica.attr("href"));
+		}
+		
+	}
+	
+	public void czekaj()
+	{
+		try{
+			Thread.sleep((long)Math.abs((Math.random() * 800 + 1)));
+		}
+		catch(Exception e)
+		{
+			System.out.println("### BLAD PODCZAS CZEKANIA...?");
+			e.printStackTrace();
+		}
+	}
+	
+	public void zjedzUlice(String kodowanaNazwa, int TERYT, String link)
+	{
+		//Czekaj około sekundy...
+		czekaj();
+
+		Elements obiekty = zjedzListeObiektow(link);
+		if(obiekty == null){
+			System.out.println("### PUSTA ULICA");
+		}
+
+		//Dla każdego obiektu z ulicy...
+		for (Element obiekt : obiekty) 
+		{
+			String nazwa = obiekt.select("[itemprop=name]").text();
+			String odnosnik = "http://www.zumi.pl"+obiekt.select("[itemprop=name]").attr("href");
+			String adres = obiekt.select("[itemprop=adress]").text();
+			String telefon = obiekt.select("[itemprop=telephone]").text();
+			
+			//Utworz nowy obiekt
+			Obiekt ob = new Obiekt(URLDecoder.decode(kodowanaNazwa),TERYT,nazwa,adres,telefon);
+			
+			//zjedz strone obiektu
+			zjedzStroneObiektu(ob, odnosnik);
+			
+			System.out.println( "Nazwa obiektu: " + nazwa +
+								"\nLink: "+ odnosnik +
+								"\nAdres: "+ adres +
+								"\nTelefon: "+ telefon +
+								"\n#######################################\n"
+								);
+		}
+	}
+	
+	public void zjedzStroneObiektu(Obiekt obiekt, String odnosnik)
+	{
+		String wlasnosc = "";
+		String zatrudnienie = "";
+		String email = "";
+		
+		//PRZETWORZ ADRES
+		String[] tmp = odnosnik.split("#");
+		String aboutPage = tmp[ 0 ];
+		
+		try {
+			Document doc = Jsoup.connect(aboutPage+"#aboutPage")
+					.userAgent("Mozilla/5.0 (Windows; U; WindowsNT 5.1; en-US; rv1.8.1.6) Gecko/20070725 Firefox/2.0.0.6")
+					.referrer("http://www.google.com")
+					.get();
+			
+			Element lines = doc.select(".block.blockText.blockAbout.blockServices").first();
+
+			Iterator<Element> ite = lines.select(".textLabel").iterator();
+			
+			while(ite.hasNext())
+			{
+				Element e = ite.next();
+				String result = e.text();
+				if(result.contains("Forma własności:")) wlasnosc = e.nextSibling().nextSibling().toString();
+				else if(result.contains("E-mail:")) email = e.nextElementSibling().text();
+				else if(result.contains("Zatrudnienie:")) zatrudnienie = e.nextSibling().toString();
+				
+			}
+			
+			if( wlasnosc.equals("") ) uwagi = uwagi+" FW";
+			if( zatrudnienie.equals("") || TERYT == -1 ) uwagi = uwagi+" BD";
+				
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+	}
+	
+	public Elements zjedzListeObiektow(String link)
+	{
+		//Wez strone z ulicą
+		try{
+			Document document = Jsoup.connect(link)
+				.userAgent("Mozilla/5.0 (Windows; U; WindowsNT 5.1; en-US; rv1.8.1.6) Gecko/20070725 Firefox/2.0.0.6")
+				.referrer("http://www.google.com")
+				.get();
+			Elements objects = document.select("[itemprop=itemListElement]");
+			if(objects.hasText())
+				return objects;
+			else return null;	
+
+		}
+		catch(Exception e)
+		{
+			System.out.println("### BLAD POBIERANIA OBIEKTOW Z ULICY");
+			e.printStackTrace();
+		}
+
+		return null;	
+		
+	}
+	
+	public Elements zjedzListeUlic(String gmina)
+	{
+		try{
+			Document document = Jsoup
+								.connect(urlPrefiks+gmina)
+								.userAgent("Mozilla/5.0 (Windows; U; WindowsNT 5.1; en-US; rv1.8.1.6) Gecko/20070725 Firefox/2.0.0.6")
+								.referrer("http://www.google.com")
+								.get();
+			
+			Elements streets = document.select(".streetsInCity");
+			if(streets.hasText())
+			{
+				Elements links = streets.select("a[href]");
+					if(links.hasText())
+					{	return links;	}
+			}
+			else return null;	
+			
+		}
+		catch(Exception e)
+		{
+			System.out.println("### BRAK ULIC DO POBRANIA:");
+			e.printStackTrace();
+		}
+		
+		return null;
+		
+	}
+	
+	public static int zjedzTERYT(String gmina)
+	{
+		String url = "http://www.stat.gov.pl/broker/access/performSearch.jspa?searchString="+gmina+"&level=gmi&wojewodztwo=2217&powiat=&gmina=&miejscowosc=&advanced=true";
+
+		System.out.println("1. POBIERAM TERYT Z ADRESU:\n"+url);
+		
+		try {
+			Document document = Jsoup.connect(url)
+					.userAgent("Mozilla/5.0 (Windows; U; WindowsNT 5.1; en-US; rv1.8.1.6) Gecko/20070725 Firefox/2.0.0.6")
+					.referrer("http://www.google.com")
+					.get();
+
+			Element table = document.select("#row").first();
+			
+			Iterator<Element> ite = table.select("td").iterator();
+			
+			int TERYT = Integer.parseInt(ite.next().text());
+						
+			return TERYT;
+			
+		} catch (Exception e) {
+			System.out.println("### BLAD POBIERANIA TERYTu:");
+			e.printStackTrace();
+		}
+		
+		return -1;
+	}
+	
+}

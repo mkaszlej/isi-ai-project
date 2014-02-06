@@ -1,0 +1,65 @@
+package crawler;
+
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
+
+public class SimpleCrawler {
+
+	public SimpleCrawler() {
+		
+	}
+	
+	public static void main(String [] args) 
+	{
+		String baseUrl = "http://www.zumi.pl/lista-firm/mazowieckie-";
+		String city = "Tarczyn";
+		System.out.println("URL: " + baseUrl+city);
+		
+		try{
+			Document document = Jsoup.connect(baseUrl+city).get();
+			Elements streets = document.select(".streetsInCity");
+			Elements links = streets.select("a[href]");
+			for (Element link : links) {
+			    getStreetData("http://www.zumi.pl"+link.attr("href"));
+			}
+			
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		
+	}
+	
+	public static void getStreetData(String link)
+	{
+		try{
+			System.out.println("Trying: " + link );
+			Thread.sleep(1000);
+			Document document = Jsoup.connect(link).get();
+			Elements objects = document.select("[itemprop=itemListElement]");
+			for (Element object : objects) {
+				
+				object.select("[itemprop=name]").text();
+				
+				String nazwa = object.select("[itemprop=name]").text();
+				String href = object.select("[itemprop=name]").attr("href");
+				String adres = object.select("[itemprop=adress]").text();
+				String telefon = object.select("[itemprop=telephone]").text();
+				System.out.println( "Nazwa obiektu: " + nazwa +
+									"\nLink: "+ href +
+									"\nAdres: "+ adres +
+									"\nTelefon: "+ telefon +
+									"\n#######################################\n"
+									);
+			}
+			
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+			
+	}
+}

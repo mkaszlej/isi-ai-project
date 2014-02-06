@@ -1,0 +1,14 @@
+package crawler;
+
+import java.util.ArrayList;
+
+public class ZumiCrawler {
+
+	public ZumiCrawler(String wojewodztwo, ArrayList<String> miasta)
+	{
+		for (String miasto : miasta) {
+			
+		}
+	}
+	
+}

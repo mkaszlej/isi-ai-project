@@ -1,0 +1,17 @@
+package crawler;
+
+public class Slownik {
+
+	String kategoria;
+	int infrastruktura;
+	
+	Slownik(){
+		
+	}
+	
+	Slownik(String kategoria, int infrastruktura)
+	{
+		this.kategoria=kategoria;
+		this.infrastruktura=infrastruktura;
+	}
+}

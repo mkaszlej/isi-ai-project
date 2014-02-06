@@ -1,0 +1,24 @@
+package crawler;
+
+public class Slownik {
+
+	int id;
+	String kategoria;
+	int infrastruktura;
+	
+	Slownik(){
+		
+	}
+	
+	Slownik(int id; String kategoria, int infrastruktura)
+	{
+		this.id = id;
+		this.kategoria=kategoria;
+		this.infrastruktura=infrastruktura;
+	}
+	
+	@Override
+	public String toString() {
+		return id+"|"+kategoria+"|"+infrastruktura;
+	}
+}

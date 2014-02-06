@@ -1,0 +1,245 @@
+package crawler;
+ 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.LinkedList;
+import java.util.List;
+ 
+public class Baza {
+ 
+    public static final String DRIVER = "org.sqlite.JDBC";
+    public static final String DB_URL = "jdbc:sqlite:crawler.db";
+ 
+    private Connection conn;
+    private Statement stat;
+ 
+    public Baza() {
+        try {
+            Class.forName(Baza.DRIVER);
+        } catch (ClassNotFoundException e) {
+            System.err.println("Brak sterownika JDBC");
+            e.printStackTrace();
+        }
+ 
+        try {
+            conn = DriverManager.getConnection(DB_URL);
+            stat = conn.createStatement();
+        } catch (SQLException e) {
+            System.err.println("Problem z otwarciem polaczenia");
+            e.printStackTrace();
+        }
+ 
+        createTables();
+    }
+ 
+    public boolean createTable(String tableName)  {
+    	String createTable = "CREATE TABLE IF NOT EXISTS "+tableName+" (id INTEGER PRIMARY KEY AUTOINCREMENT, nazwaGminy varchar(255), TERYT int, kategoria varchar(255), nazwa varchar(255), adres varchar(255), telefon varchar(255), email varchar(255), wlasnosc varchar(255), zatrudnienie varchar(255), watpliwe varchar(255) )";
+    	try {
+        	stat.execute(createTable);
+        } catch (SQLException e) {
+            System.err.println("Blad przy tworzeniu tabeli");
+            e.printStackTrace();
+            return false;
+        }
+        return true;
+    }
+    
+    public boolean createTables()  {
+    	String createDane2 = "CREATE TABLE IF NOT EXISTS dane (id INTEGER PRIMARY KEY AUTOINCREMENT, nazwaGminy varchar(255), TERYT int, kategoria varchar(255), nazwa varchar(255), adres varchar(255), telefon varchar(255), email varchar(255), liczbaMiejsc int, liczbaFunkcji int, watpliwe varchar(255) )";
+    	String createDane = "CREATE TABLE IF NOT EXISTS dane2 (id INTEGER PRIMARY KEY AUTOINCREMENT, nazwaGminy varchar(255), TERYT int, kategoria varchar(255), nazwa varchar(255), adres varchar(255), telefon varchar(255), email varchar(255), wlasnosc varchar(255), zatrudnienie varchar(255), watpliwe varchar(255) )";
+    	String createSlowniki = "CREATE TABLE IF NOT EXISTS slowniki (id INTEGER PRIMARY KEY AUTOINCREMENT, kategoria varchar(255), infrastruktura int )";
+        try {
+        	stat.execute(createDane);
+        	stat.execute(createDane2);
+            stat.execute(createSlowniki);
+        } catch (SQLException e) {
+            System.err.println("Blad przy tworzeniu tabeli");
+            e.printStackTrace();
+            return false;
+        }
+        return true;
+    }
+
+    public boolean insertDane(String nazwaGminy, int TERYT, String kategoria, String nazwa, String adres, String telefon, String email, String wlasnosc, String zatrudnienie,  String watpliwe ) {
+        try {
+            PreparedStatement prepStmt = conn.prepareStatement(
+                    "insert into dane2 values (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);");
+            prepStmt.setString(1, nazwaGminy);
+            prepStmt.setInt(2, TERYT);
+            prepStmt.setString(3, kategoria);
+            prepStmt.setString(4, nazwa);
+            prepStmt.setString(5, adres);
+            prepStmt.setString(6, telefon);
+            prepStmt.setString(7, email);
+            prepStmt.setString(8, wlasnosc);
+            prepStmt.setString(9, zatrudnienie);
+            prepStmt.setString(10, watpliwe);
+            prepStmt.execute();
+        } catch (SQLException e) {
+            System.err.println("Blad przy wstawianiu czytelnika");
+            e.printStackTrace();
+            return false;
+        }
+        return true;
+    }
+
+    public boolean insertDane(String tableName, String nazwaGminy, int TERYT, String kategoria, String nazwa, String adres, String telefon, String email, String wlasnosc, String zatrudnienie,  String watpliwe ) {
+        try {
+            PreparedStatement prepStmt = conn.prepareStatement(
+                    "insert into "+tableName+" values (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);");
+            prepStmt.setString(1, nazwaGminy);
+            prepStmt.setInt(2, TERYT);
+            prepStmt.setString(3, kategoria);
+            prepStmt.setString(4, nazwa);
+            prepStmt.setString(5, adres);
+            prepStmt.setString(6, telefon);
+            prepStmt.setString(7, email);
+            prepStmt.setString(8, wlasnosc);
+            prepStmt.setString(9, zatrudnienie);
+            prepStmt.setString(10, watpliwe);
+            prepStmt.execute();
+        } catch (SQLException e) {
+            System.err.println("Blad przy wstawianiu danych");
+            e.printStackTrace();
+            return false;
+        }
+        return true;
+    }
+
+    public int slownikExsist(String kategoria)
+    {
+    	try {
+    		ResultSet result = stat.executeQuery("SELECT infrastruktura FROM slowniki WHERE kategoria like \""+kategoria+"\"");	
+    		if(result.next())
+    			return result.getInt("infrastruktura");
+    	}
+    	catch (SQLException e) {
+            e.printStackTrace();
+            return 0;
+        }
+    	return 0;
+    }
+    
+    public boolean insertSlownik( String kategoria, int infrastuktura ) {
+        try {
+        	int status = slownikExsist(kategoria);
+        	
+        	if( status == 0 )
+        	{
+        		//NIE MA W BAZIE
+                PreparedStatement prepStmt = conn.prepareStatement("insert into slowniki values (NULL, ?, ?);");
+                prepStmt.setString(1, kategoria);
+                prepStmt.setInt(2, infrastuktura);
+                prepStmt.execute();
+                return true;
+        	}
+        	else if( status == -1 )
+        	{
+        		//JEST z -1 - UPDATE
+        		//NIE MA W BAZIE
+                PreparedStatement prepStmt = conn.prepareStatement("update slowniki set infrastruktura = ? where kategoria = ?;");
+                prepStmt.setInt(1, infrastuktura);
+                prepStmt.setString(2, kategoria);
+                prepStmt.execute(); 
+                return false;
+        	}
+        	else return false;
+        	
+
+        } catch (SQLException e) {
+            System.err.println("Blad przy wstawianiu czytelnika");
+            e.printStackTrace();
+            return false;
+        }
+
+    }
+    
+    public List<Obiekt> selectDane() {
+        List<Obiekt> dane = new LinkedList<Obiekt>();
+        try {
+            ResultSet result = stat.executeQuery("SELECT * FROM dane2");
+            int id, TERYT;
+            String nazwaGminy, kategoria, nazwa, adres, telefon, email, wlasnosc, zatrudnienie, watpliwe;
+            while(result.next()) {
+                id = result.getInt("id");
+                nazwaGminy = result.getString("nazwaGminy");
+                kategoria = result.getString("kategoria");
+                nazwa = result.getString("nazwa");
+                adres = result.getString("adres");
+                telefon = result.getString("telefon");
+                email = result.getString("email");
+                watpliwe = result.getString("watpliwe");
+                TERYT = result.getInt("TERYT");
+                wlasnosc = result.getString("wlasnosc");
+                zatrudnienie = result.getString("zatrudnienie");
+                dane.add(new Obiekt(id, nazwaGminy,TERYT,kategoria,nazwa,adres,telefon,email, wlasnosc, zatrudnienie, watpliwe));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+        return dane;
+    }
+
+    public List<Obiekt> selectDane(String tableName) {
+        List<Obiekt> dane = new LinkedList<Obiekt>();
+        try {
+            ResultSet result = stat.executeQuery("SELECT * FROM "+tableName);
+            int id, TERYT;
+            String nazwaGminy, kategoria, nazwa, adres, telefon, email, wlasnosc, zatrudnienie, watpliwe;
+            while(result.next()) {
+                id = result.getInt("id");
+                nazwaGminy = result.getString("nazwaGminy");
+                kategoria = result.getString("kategoria");
+                nazwa = result.getString("nazwa");
+                adres = result.getString("adres");
+                telefon = result.getString("telefon");
+                email = result.getString("email");
+                watpliwe = result.getString("watpliwe");
+                TERYT = result.getInt("TERYT");
+                wlasnosc = result.getString("wlasnosc");
+                zatrudnienie = result.getString("zatrudnienie");
+                dane.add(new Obiekt(id, nazwaGminy,TERYT,kategoria,nazwa,adres,telefon,email, wlasnosc, zatrudnienie, watpliwe));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+        return dane;
+    }
+    
+    public List<Slownik> selectSlownik() {
+        List<Slownik> slowniki = new LinkedList<Slownik>();
+        try {
+            ResultSet result = stat.executeQuery("SELECT * FROM slowniki");
+            int id, infrastruktura;
+            String kategoria;
+            while(result.next()) {
+                id = result.getInt("id");
+                kategoria= result.getString("kategoria");
+                infrastruktura = result.getInt("infrastruktura");
+                slowniki.add(new Slownik(id, kategoria, infrastruktura));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+        return slowniki;
+    }
+    
+    
+    public void closeConnection() {
+        try {
+            conn.close();
+        } catch (SQLException e) {
+            System.err.println("Problem z zamknieciem polaczenia");
+            e.printStackTrace();
+        }
+    }
+}
+
+//Czytaj więcej na: http://javastart.pl/zaawansowane-programowanie/bazy-danych-sqlite-w-javie/#ixzz2sBY6A329

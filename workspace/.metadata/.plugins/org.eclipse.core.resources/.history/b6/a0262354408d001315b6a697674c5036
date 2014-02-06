@@ -1,0 +1,31 @@
+package crawler;
+
+
+import java.net.URLEncoder;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
+
+public class SimpleCrawler {
+
+	
+	public SimpleCrawler() {
+		
+	}
+	
+	public static void main(String [] args) 
+	{
+		ArrayList<String> gminy = new ArrayList<>();
+		gminy.add("Augustów");
+		gminy.add("Nowinka");
+		
+		ZumiCrawler z = new ZumiCrawler("podlaskie", gminy);
+		z.pelzaj();
+	}
+	
+}

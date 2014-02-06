@@ -1,0 +1,31 @@
+package mkaszlej.crawler;
+
+
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
+
+public class Crawler {
+	
+	public Crawler(){
+		try{
+		
+			String url = "http://stackoverflow.com/questions/3152138";
+			Document document = Jsoup.connect(url).get();
+		
+			Element question = document.select("#question .post-text p").first();
+			System.out.println("Question: " + question.text());
+		
+			Elements answerers = document.select("#answers .user-details a");
+			
+			for (Element answerer : answerers) {
+			    System.out.println("Answerer: " + answerer.text());
+			}
+		}
+		catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+	}
+}

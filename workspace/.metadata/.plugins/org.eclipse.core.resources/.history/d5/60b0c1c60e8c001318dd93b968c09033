@@ -1,0 +1,54 @@
+package crawler;
+
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
+
+public class SimpleCrawler {
+
+	public SimpleCrawler() {
+		
+	}
+	
+	public static void main(String [] args) 
+	{
+		String baseUrl = "http://www.zumi.pl/lista-firm/mazowieckie-";
+		String city = "Tarczyn";
+		System.out.println("URL: " + baseUrl+city);
+		
+		try{
+			Document document = Jsoup.connect(baseUrl+city).get();
+			
+//			Element question = document.select("a").first();
+//			System.out.println("Question: " + question.val());
+//		
+			Elements links = document.select("a[href]");
+			for (Element link : links) {
+			    System.out.println("Link: " + link.text() +" odnosnik: "+ link.attr("href") );
+			    getStreetData(link.attr("href"));
+			    
+			}
+			
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		
+	}
+	
+	public void getStreetData(String link)
+	{
+		try{
+			Document document = Jsoup.connect(link).get();
+			Elements name = document.select("a[itemprop=name]");
+			System.out.println("Name: " + name.text() +" odnosnik: "+ name.attr("href") );
+			
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+			
+	}
+}

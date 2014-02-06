@@ -1,0 +1,13 @@
+package crawler;
+
+public class Slownik {
+
+	String kategoria;
+	int infrastruktura;
+	
+	Slownik(){
+		
+	}
+	
+	void insertFromFile(){}
+}

@@ -1,0 +1,27 @@
+package crawler;
+
+public class Rekord {
+
+	/*
+	 * Nazwa gminy lub miasta na prawach powiatu
+	 */
+	String nazwa;
+	/* 
+	 * Identyfikator gminy z GUS
+	 */
+	int TERYT;
+	/*
+	 * Indeks z tabeli indekstów(wysoka,religija etc.)
+	 */
+	int indeks;
+	/*	kategoria instytucji/organizacji:
+	 * 	P= prywatna,
+	 *  S=samorządowa,
+	 *  PA =państwowa (budżetowa),
+	 *  N= NGO's, 
+	 *  I= inne (np. mieszany typ, współprowadzenie itd.)
+	 */
+	String kategoria;
+	
+	
+}

@@ -1,0 +1,85 @@
+package crawler;
+
+public class Rekord {
+
+	int id;
+	/*
+	 * Nazwa gminy lub miasta na prawach powiatu
+	 */
+	String nazwaGminy;
+	/* 
+	 * Identyfikator gminy z GUS
+	 */
+	int TERYT;
+	/*
+	 * Indeks z tabeli indekstów(wysoka,religija etc.)
+	 */
+	int indeks;
+	/*	kategoria instytucji/organizacji:
+	 * 	P = prywatna,
+	 *  S = samorządowa,
+	 *  PA = państwowa (budżetowa),
+	 *  N = NGO's, 
+	 *  I= inne (np. mieszany typ, współprowadzenie itd.)
+	 */
+	String kategoria;
+	/* 
+	 * Nazwa obiektu
+	 */
+	String nazwa;
+	/*
+	 * Adres obiektu
+	 */
+	String adres;
+	/*
+	 * telefon
+	 */
+	String telefon;
+	/*
+	 * email
+	 */
+	String email;
+	/*
+	 * Liczba miejsc oferowanych
+	 * !POLE POMIJANE
+	 */
+	int liczbaMiejsc;
+	/*
+	 * ilość funkcji. Przyjmujemy jedną
+	 */
+	int liczbaFunkcji;
+	/*
+	 * PRZYPADKI WATPLIWE:
+	 * - jeżeli wątpliwość dotyczy przypisania do INDEKSU i wypełniamy kolumnę 10, wpisując symbol I, to NIE wypełniamy KOLUMNY 3! pozostałe dane wpisujemy zgodnie z niniejszą instrukcją; 
+	 * - jeżeli mamy wątpliwości dotyczące kolumny 4 (FORMA WŁASNOŚCI/ZARZĄDZANIA) to nie wypełniamy tej kolumny i zaznaczamy w kolumnie 10 symbolem FW, iż nie wiemy jaka to forma własności; 
+	 * - jeżeli mamy wątpliwości co do AKTUALNOŚCI danych w kolumnie 10 wpisujemy symbol NA;
+	 * - W POZOSTAŁYCH PRZYPADKACH, GDY DANE SĄ NIEKOMPLETNE I NIE UDAŁO SIĘ ICH ODNALEŹĆ, UŻYWAMY SYMBOLU BD = BRAK DANYCH
+	 */
+	String watpliwe;
+	
+	public Rekord()
+	{
+		
+	}
+	
+	public Rekord(int id, String nazwaGminy, int TERYT, String kategoria, String nazwa, String adres, String telefon, String email, int liczbaFunkcji, int liczbaMiejsc, String watpliwe )
+	{
+		this.id = id;
+		this.nazwaGminy = nazwaGminy;
+		this.TERYT = TERYT;
+		this.kategoria = kategoria;
+		this.nazwa = nazwa;
+		this.adres = adres;
+		this.telefon = telefon;
+		this.email = email;
+		this.watpliwe = watpliwe;
+		this.liczbaFunkcji=liczbaFunkcji;
+		this.liczbaMiejsc=liczbaMiejsc;
+	}
+	
+
+	public String toString()
+	{
+		return id+"|"+nazwaGminy+"|"+TERYT+"|"+kategoria+"|"+nazwa+"|"+adres+"|"+telefon+"|"+email+"|"+liczbaMiejsc+"|"+liczbaFunkcji+"|"+watpliwe;
+	}
+}

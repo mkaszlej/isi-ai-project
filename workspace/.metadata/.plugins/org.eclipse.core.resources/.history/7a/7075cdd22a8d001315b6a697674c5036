@@ -1,0 +1,25 @@
+package crawler;
+
+import java.util.ArrayList;
+
+public class ZumiCrawler {
+
+	String wojewodztwo;
+	ArrayList<String> miasta;
+	
+	Baza dbConnection;
+	
+	public ZumiCrawler(String wojewodztwo, ArrayList<String> miasta)
+	{
+		this.wojewodztwo = wojewodztwo;
+		this.miasta = miasta;
+	}
+	
+	public void crawl()
+	{
+		for (String miasto : miasta) {
+			
+		}
+	}
+	
+}
