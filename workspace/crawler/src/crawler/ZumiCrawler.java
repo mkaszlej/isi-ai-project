@@ -214,17 +214,18 @@ public class ZumiCrawler {
 					.timeout(10000)
 					.get();
 			
-			Element lines = doc.select(".block.blockText.blockAbout.blockServices").first();
+			Element lines = doc.select("div.block.blockText.blockServices").last();
 			if(lines == null)
 			{
-				System.out.println("### BRAK DANYCH NA STRONIE ABOUT...");
+				System.out.println("### BRAK DANYCH NA STRONIE ABOUT...1");
 				return;
 			}
+
 			
 			Iterator<Element> ite = lines.select(".textLabel").iterator();
 			if(ite.hasNext() == false)
 			{
-				System.out.println("### BRAK DANYCH NA STRONIE ABOUT...");
+				System.out.println("### BRAK DANYCH NA STRONIE ABOUT...2");
 				return;
 			}
 			

@@ -45,20 +45,21 @@ public class SimpleCrawler {
 ////		//KAJECZNA
 ////		
 //		gminy.add("Czerwonka");
-		gminy.add("Jabłonna");
-		gminy.add("Karniewo");
-		gminy.add("Krosnosielc");
-		gminy.add("Legionowo");
-		gminy.add("Lipsko");
-////		gminy.add("Maków Mazowiecki");
-		gminy.add("Nieporęt");
-		gminy.add("Pułtusk");
-		gminy.add("Różan");
-		gminy.add("Rzeczniów");
-		gminy.add("Rzewnie");
-		gminy.add("Serock");
-		gminy.add("Sienno");
-//		gminy.add("Wieliszew");
+//		gminy.add("Jabłonna");
+//		gminy.add("Karniewo");
+//		gminy.add("Krosnosielc");
+//		gminy.add("Legionowo");
+//		gminy.add("Lipsko");
+//		gminy.add("Maków Mazowiecki");
+//		gminy.add("Nieporęt");
+//		gminy.add("Pułtusk");
+//		gminy.add("Różan");
+//		gminy.add("Rzeczniów");
+//		gminy.add("Rzewnie");
+//		gminy.add("Serock");
+//		gminy.add("Sienno");
+		gminy.add("Wieliszew");
+		gminy.add("Kadzidło");
 		
 		ZumiCrawler z = new ZumiCrawler("mazowieckie", gminy);
 		z.pelzaj();
